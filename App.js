@@ -1,14 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import Main from "./src/containers/screens/Main";
+import { StyleSheet, Text, View } from 'react-native';
+import Navigation from "./src/config/navigation/index";
 
 const App = () => {
-  return (
-    <View>
-      <Text>Test</Text>
-      <Main/>
-    </View>
-  )
+  return <Navigation/>;
 }
 
 export default App
