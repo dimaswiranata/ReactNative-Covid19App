@@ -1,9 +1,27 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import CardInfoGrid from "../../../components/card/CardInfoGrid";
 import color from "../../../config/constant/color";
+import axios from "axios";
+import api from "../../../config/constant/api";
 
 const CardIndonesia = () => {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+  const getData = async () => {
+    await axios.get(api.apiID)
+      .then((res) => {
+        setData(res.data);
+        console.log('result', data);
+      })
+      .catch((err) => {
+        console.log('error: ', err.message);
+      });
+  }
   return (
     <View
       style={{
@@ -27,19 +45,19 @@ const CardIndonesia = () => {
         <CardInfoGrid
           color={color.yellow}
           status="Confirmed"
-          value="1234"
+          value={data.confirmed.value}
         />
 
         <CardInfoGrid
           color={color.teal}
           status="Recovered"
-          value="1234"
+          value={data.recovered.value}
         />
 
         <CardInfoGrid
           color={color.red}
           status="Death"
-          value="1234"
+          value={data.deaths.value}
         />
       </View>
       <Text style={{
@@ -48,7 +66,7 @@ const CardIndonesia = () => {
         color: color.white
         }}
       >
-        Last Update : 2020-01-01:00:00:00
+        Last Update: {data.lastUpdate}
       </Text>
       <Button 
         title="Detail"
