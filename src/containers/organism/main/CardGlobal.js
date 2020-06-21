@@ -16,7 +16,7 @@ const CardGlobal = () => {
     await axios.get(api.api)
       .then((res) => {
         setData(res.data);
-        console.log('result', data);
+        // console.log('result', data);
       })
       .catch((err) => {
         console.log('error: ', err.message);
@@ -24,37 +24,47 @@ const CardGlobal = () => {
   }
 
   return (
-    <View
-      style={{
-      backgroundColor: color.blackLight,
-      margin: 10,
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      borderRadius: 10
-      }}
-    >
-    {data && (
-      <>
-        <CardInfo
-          color="yellow"
-          status="Confirmed"
-          value={data.confirmed.value}
-        />
-          
-        <CardInfo
-          color="green"
-          status="Recovered"
-          value={data.recovered.value}
-        />
+    <View style={{marginVertical: 10}}>
+      <Text style={{
+        marginLeft: 10,
+        color: color.white,
+        fontSize: 20
+        }}
+      >
+        Global
+      </Text>
+      <View
+        style={{
+        backgroundColor: color.blackLight,
+        margin: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 10
+        }}
+      >
+      {data && (
+        <>
+          <CardInfo
+            col="yellow"
+            status="Confirmed"
+            value={data.confirmed.value.toLocaleString()}
+          />
+            
+          <CardInfo
+            col="green"
+            status="Recovered"
+            value={data.recovered.value}
+          />
 
-        <CardInfo
-          color="red"
-          status="Death"
-          value={data.deaths.value}
-        />
-      </>
-    )}
+          <CardInfo
+            col="red"
+            status="Death"
+            value={data.deaths.value}
+          />
+        </>
+      )}
 
+      </View>
     </View>
   )
 }

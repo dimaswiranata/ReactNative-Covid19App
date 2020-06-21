@@ -4,6 +4,7 @@ const teal = '#219897';
 const white = '#fff';
 const yellow = '#f6c90e';
 const red = '#f82749';
+const orange = 'orange';
 
 export default {
   black,
@@ -11,5 +12,6 @@ export default {
   teal,
   white,
   yellow,
-  red
+  red,
+  orange
 };

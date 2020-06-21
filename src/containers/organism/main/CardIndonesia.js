@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
 import CardInfoGrid from "../../../components/card/CardInfoGrid";
 import color from "../../../config/constant/color";
 import axios from "axios";
@@ -13,65 +13,75 @@ const CardIndonesia = () => {
   }, [])
 
   const getData = async () => {
-    await axios.get(api.apiID)
+    await axios.get(api.apiM)
       .then((res) => {
         setData(res.data);
-        console.log('result', data);
+        console.log('HASIL', data);
       })
       .catch((err) => {
         console.log('error: ', err.message);
       });
   }
   return (
-    <View
-      style={{
-        backgroundColor: color.blackLight,
-        margin: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 10
-      }}
-    >
-      <Text style={{
-        textAlign:'center',
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginBottom: 20
-        }}
-      >
-        Indonesia
-      </Text>
-      <View style={{flexDirection: 'row'}}>
-        <CardInfoGrid
-          color={color.yellow}
-          status="Confirmed"
-          value={data.confirmed.value}
-        />
-
-        <CardInfoGrid
-          color={color.teal}
-          status="Recovered"
-          value={data.recovered.value}
-        />
-
-        <CardInfoGrid
-          color={color.red}
-          status="Death"
-          value={data.deaths.value}
-        />
+    <View style={{marginVertical: 10}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={{
+          marginLeft: 10,
+          color: color.white,
+          fontSize: 20
+          }}
+        >
+          Indonesia
+        </Text>
+        <TouchableOpacity>
+          <Text style={{
+              marginRight: 10,
+              color: color.white,
+              fontSize: 16
+            }}
+          >
+            Detail
+          </Text>
+        </TouchableOpacity>
       </View>
-      <Text style={{
-        textAlign: 'right',
-        marginVertical: 10,
-        color: color.white
+      <View
+        style={{
+          backgroundColor: color.blackLight,
+          margin: 10,
+          paddingHorizontal: 20,
+          paddingVertical: 10,
+          borderRadius: 10
         }}
       >
-        Last Update: {data.lastUpdate}
-      </Text>
-      <Button 
-        title="Detail"
-        onPress={() => console.log('clicked')}
-      />
+        <>
+          <View style={{flexDirection: 'row'}}>
+            <CardInfoGrid
+              color={color.yellow}
+              status="Confirmed"
+              value={data.jumlahKasus}
+            />
+
+            <CardInfoGrid
+              color={color.teal}
+              status="Recovered"
+              value={data.sembuh}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <CardInfoGrid
+              color={color.red}
+              status="Death"
+              value={data.meninggal}
+            />
+
+            <CardInfoGrid
+              color={color.orange}
+              status="Isolated"
+              value={data.perawatan.toLocaleString()}
+            />
+          </View>
+        </>
+      </View>
     </View>
   )
 }
