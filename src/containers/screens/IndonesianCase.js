@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler';
 import axios from "axios";
 import api from '../../config/constant/api';
 import color from '../../config/constant/color';
 
-const CountryScreen = () => {
+const IndonesianCase = () => {
   const [data, setData] = useState([]);
 
   const renderItem = ({item}) => {
@@ -16,7 +17,7 @@ const CountryScreen = () => {
           borderRadius: 8
         }}
       >
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{item.country_region}</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{item.provinsi}</Text>
         <View style={{flexDirection: 'row'}}>
           <Text 
             style={{
@@ -27,7 +28,7 @@ const CountryScreen = () => {
               fontWeight: 'bold'
             }}
           >
-            Positif {item.confirmed}
+            Positif {item.kasusPosi}
           </Text>
           <Text 
             style={{
@@ -38,7 +39,7 @@ const CountryScreen = () => {
               fontWeight: 'bold'
             }}
           >
-            Sembuh {item.recovered}
+            Sembuh {item.kasusSemb}
           </Text>
           <Text 
             style={{
@@ -49,7 +50,7 @@ const CountryScreen = () => {
               fontWeight: 'bold'
             }}
           >
-            Meninggal {item.deaths}
+            Meninggal {item.kasusMeni}
           </Text>
         </View>
       </View>
@@ -59,12 +60,12 @@ const CountryScreen = () => {
   useEffect(() => {
     getData();
   }, [])
- 
+
   const getData = async () => {
-    await axios.get(api.apiG)
+    await axios.get(api.apiM + "/provinsi")
       .then((res) => {
-        setData(res.results);
-        console.log('RESULT', data);
+        setData(res.data.data);
+        // console.log('RESULT', data);
       })
       .catch((err) => {
         console.log('error: ', err.message);
@@ -76,12 +77,12 @@ const CountryScreen = () => {
       <FlatList
         data={data}
         renderItem={renderItem}
-        // keyExtractor={data.last_updated}
+        keyExtractor={data.fid}
       />
     </SafeAreaView>
   )
 }
 
-export default CountryScreen
+export default IndonesianCase
 
 const styles = StyleSheet.create({})
