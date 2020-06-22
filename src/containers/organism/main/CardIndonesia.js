@@ -4,8 +4,10 @@ import CardInfoGrid from "../../../components/card/CardInfoGrid";
 import color from "../../../config/constant/color";
 import axios from "axios";
 import api from "../../../config/constant/api";
+import { useNavigation } from '@react-navigation/native';
 
 const CardIndonesia = () => {
+  const navigation = useNavigation();
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -33,7 +35,9 @@ const CardIndonesia = () => {
         >
           Indonesia
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('IndonesianCase')}
+        >
           <Text style={{
               marginRight: 10,
               color: color.white,
@@ -58,26 +62,26 @@ const CardIndonesia = () => {
             <CardInfoGrid
               color={color.yellow}
               status="Confirmed"
-              value={data.jumlahKasus}
+              // value={data.jumlahKasus}
             />
 
             <CardInfoGrid
               color={color.teal}
               status="Recovered"
-              value={data.sembuh}
+              // value={data.sembuh}
             />
           </View>
           <View style={{flexDirection: 'row'}}>
             <CardInfoGrid
               color={color.red}
               status="Death"
-              value={data.meninggal}
+              // value={data.meninggal}
             />
 
             <CardInfoGrid
               color={color.orange}
               status="Isolated"
-              value={data.perawatan.toLocaleString()}
+              // value={data.perawatan.toLocaleString()}
             />
           </View>
         </>
