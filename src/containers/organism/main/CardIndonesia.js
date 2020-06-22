@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const CardIndonesia = () => {
   const navigation = useNavigation();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     getData();
